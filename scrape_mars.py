@@ -31,7 +31,7 @@ def scrape():
     news["p"] = news_html.find("div", class_="rollover_description").get_text().strip('\n')
     
     news_collection = db['mars_news']
-    db.news_collection.insert_many(news)
+    db.news_collection.insert_one(news)
     
     # JPL scrape
     jpl_url = "https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars"
@@ -45,7 +45,7 @@ def scrape():
     jpl["ft_img_url"] = f'https://www.jpl.nasa.gov/{jpl_html}'
 
     jpl_collection = db['mars_jpl']
-    db.jpl_collection.insert_many(jpl)
+    db.jpl_collection.insert_one(jpl)
     
     # Twitter scrape
     twitter_url = 'https://twitter.com/marswxreport?lang=en'
@@ -59,7 +59,7 @@ def scrape():
     tweet["weather"] = (twitter_html.find('p', class_='tweet-text').get_text().split('pic')[0]).strip('\n')
 
     twitter_collection = db['mars_tweet']
-    db.twitter_collection.insert_many(tweet)
+    db.twitter_collection.insert_one(tweet)
 
     # Mars facts scrape
     facts_url = 'https://space-facts.com/mars/'
